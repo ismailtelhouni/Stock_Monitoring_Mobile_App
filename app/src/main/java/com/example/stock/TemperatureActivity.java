@@ -82,6 +82,7 @@ public class TemperatureActivity extends AppCompatActivity {
             public void onCancelled(@NonNull DatabaseError databaseError) {
                 // Error getting temperature data
                 temperatureTextView.setText("Error fetching temperature data");
+                
             }
         });
     }
