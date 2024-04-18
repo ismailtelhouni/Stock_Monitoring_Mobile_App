@@ -1,0 +1,49 @@
+{
+  "project_info": {
+    "project_number": "69354527647",
+    "firebase_url": "https://testnodered-33078-default-rtdb.firebaseio.com",
+    "project_id": "testnodered-33078",
+    "storage_bucket": "testnodered-33078.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:69354527647:android:46c5df32b002d27e4cfbaa",
+        "android_client_info": {
+          "package_name": "com.example.stock"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAcuNM9Xw5EKsZrn8pFZ28Pz7ZteCw-zdw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:69354527647:android:7661cf846e6a321c4cfbaa",
+        "android_client_info": {
+          "package_name": "com.stockmonitoring"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAcuNM9Xw5EKsZrn8pFZ28Pz7ZteCw-zdw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
