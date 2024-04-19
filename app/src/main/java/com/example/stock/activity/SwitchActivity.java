@@ -1,10 +1,13 @@
-package com.example.stock;
+package com.example.stock.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.stock.R;
+import com.google.firebase.auth.FirebaseAuth;
 
 public class SwitchActivity extends AppCompatActivity {
 
@@ -27,6 +30,7 @@ public class SwitchActivity extends AppCompatActivity {
                 goToTemperatureActivity();
             }
         });
+
     }
 
     // Method to navigate to MainActivity
@@ -39,6 +43,15 @@ public class SwitchActivity extends AppCompatActivity {
     private void goToTemperatureActivity() {
         Intent intent = new Intent(this, TemperatureActivity.class);
         startActivity(intent);
+    }
+
+    public void logout(View view){
+
+        FirebaseAuth.getInstance().signOut();
+        Intent intent = new Intent( this, LoginActivity.class);
+        startActivity(intent);
+        finish();
+
     }
 }
 
