@@ -20,6 +20,18 @@
         android:text="@string/go_to_temperatureactivity"
         android:onClick="goToTemperatureActivity" />
     <Button
+        android:id="@+id/mpChartActivityButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/go_to_mpchartactivity"
+        android:onClick="goToChartActivity" />
+    <Button
+        android:id="@+id/newStockActivityButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/go_to_newstockactivity"
+        android:onClick="goToNewStockActivity" />
+    <Button
         android:id="@+id/logout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
