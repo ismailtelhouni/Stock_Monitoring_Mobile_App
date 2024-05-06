@@ -32,4 +32,8 @@
     <string name="type">type</string>
     <string name="go_to_newstockactivity">Go to NewStockActivity</string>
     <string name="in_out">IN / OUT</string>
+    <string name="boxes">Boxes</string>
+    <string name="_3600">3600</string>
+    <string name="stock_capacity_ratio">Stock Capacity Ratio</string>
+    <string name="_6000">/6000</string>
 </resources>

@@ -6,14 +6,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".fragment.HomeFragment"
     >
-
-    <ProgressBar
-        android:id="@+id/progressBar"
-        android:layout_width="35dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:visibility="gone"
-        />
     <RelativeLayout
         android:id="@+id/item_visibility"
         android:layout_width="match_parent"
@@ -41,10 +33,9 @@
         <LinearLayout
             android:id="@+id/first_chart"
             android:layout_width="match_parent"
-            android:layout_height="200dp"
+            android:layout_height="230dp"
             android:orientation="horizontal"
             android:layout_below="@+id/name"
-            android:paddingHorizontal="10dp"
             >
 
             <androidx.cardview.widget.CardView
@@ -54,23 +45,13 @@
                 android:layout_weight="1"
                 app:cardCornerRadius="8dp"
                 app:contentPaddingLeft="20dp"
-                app:contentPaddingRight="20dp">
-
-                <com.github.mikephil.charting.charts.BarChart
-                    android:id="@+id/mp_BarChart"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
-            </androidx.cardview.widget.CardView>
-
-            <androidx.cardview.widget.CardView
-                android:id="@+id/second_card"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:layout_marginStart="8dp"
-                app:cardCornerRadius="8dp"
-                app:contentPaddingLeft="20dp"
-                app:contentPaddingRight="20dp">
+                app:contentPaddingRight="20dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="4dp"
+                android:layout_marginBottom="5dp"
+                android:layout_marginTop="5dp"
+                app:cardElevation="10dp"
+                >
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -114,12 +95,76 @@
                             android:layout_marginHorizontal="2dp"
                             />
                     </LinearLayout>
-
-                    <com.github.mikephil.charting.charts.LineChart
-                        android:id="@+id/line_chart"
+                    <com.github.mikephil.charting.charts.BarChart
+                        android:id="@+id/mp_BarChart"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:layout_below="@+id/stock_in_out"
+                        android:layout_below="@id/stock_in_out"
+                        />
+                </RelativeLayout>
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/second_card"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:layout_marginStart="4dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginBottom="5dp"
+                android:layout_marginTop="5dp"
+                app:cardCornerRadius="8dp"
+                app:contentPaddingLeft="20dp"
+                app:contentPaddingRight="20dp"
+                app:cardElevation="10dp"
+                >
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    >
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/stock_capacity_ratio"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="10dp"
+                        />
+                    <com.github.mikephil.charting.charts.PieChart
+                        android:id="@+id/pie_chart"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+
+                        />
+                    <LinearLayout
+                        android:id="@+id/pie_text_layout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:gravity="center"
+                        android:visibility="gone"
+                        >
+                        <TextView
+                            android:id="@+id/pie_text"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/_3600"
+                            android:visibility="visible"
+                            />
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/_6000"
+                            />
+                    </LinearLayout>
+                    <TextView
+                        android:id="@+id/pie_text_value"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/boxes"
+                        android:textStyle="bold"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="78dp"
+                        android:visibility="gone"
                         />
                 </RelativeLayout>
             </androidx.cardview.widget.CardView>
@@ -130,8 +175,6 @@
             android:layout_height="match_parent"
             android:orientation="horizontal"
             android:layout_below="@+id/first_chart"
-            android:paddingHorizontal="10dp"
-            android:layout_marginTop="5dp"
             >
             <androidx.cardview.widget.CardView
 
@@ -139,23 +182,41 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 app:cardCornerRadius="8dp"
+                app:cardElevation="10dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="4dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
                 app:contentPaddingLeft="20dp"
                 app:contentPaddingRight="20dp">
 
-                <com.github.mikephil.charting.charts.LineChart
-                    android:id="@+id/line_chart2"
+                <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
+                    android:layout_height="match_parent"
+                    >
+
+                    <com.github.mikephil.charting.charts.LineChart
+                        android:id="@+id/line_chart"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+
+                        />
+                </RelativeLayout>
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:layout_marginStart="8dp"
+                android:layout_marginStart="4dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
                 app:cardCornerRadius="8dp"
                 app:contentPaddingLeft="20dp"
-                app:contentPaddingRight="20dp">
+                app:contentPaddingRight="20dp"
+                app:cardElevation="10dp"
+                >
 
                 <com.github.mikephil.charting.charts.BarChart
                     android:id="@+id/mp_BarChart2"
@@ -164,5 +225,13 @@
             </androidx.cardview.widget.CardView>
         </LinearLayout>
     </RelativeLayout>
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="35dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:visibility="gone"
+        />
 
 </FrameLayout>

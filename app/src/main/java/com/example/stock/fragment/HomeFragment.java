@@ -9,13 +9,18 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import com.example.stock.R;
 import com.example.stock.chart.notimportant.DayAxisValueFormatter;
 import com.example.stock.dao.StockDao;
+import com.example.stock.dto.CountStock;
 import com.example.stock.model.Stock;
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.charts.LineChart;
+import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.components.Description;
 import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.components.XAxis;
@@ -25,6 +30,9 @@ import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
+import com.github.mikephil.charting.data.PieData;
+import com.github.mikephil.charting.data.PieDataSet;
+import com.github.mikephil.charting.data.PieEntry;
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 import com.google.firebase.auth.FirebaseAuth;
@@ -36,6 +44,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
@@ -44,13 +53,13 @@ public class HomeFragment extends Fragment {
     private LineChart mpLineChart;
     private ArrayList<BarEntry> dataIN;
     private ArrayList<BarEntry> dataOut;
-
-
-    // bar chart
-
     private BarChart barChart;
+    private PieChart pieChart;
     private StockDao stockDao;
-
+    private TextView pieText , pieTextValue ;
+    private LinearLayout pieTextLayout;
+    private ProgressBar progressBar;
+    int[] colorClassArray = new int[]{Color.BLUE , Color.LTGRAY};
     public HomeFragment() {
         // Required empty public constructor
     }
@@ -68,9 +77,19 @@ public class HomeFragment extends Fragment {
         dataIN = new ArrayList<>();
         dataOut = new ArrayList<>();
         mpLineChart = view.findViewById(R.id.line_chart);
+        barChart = view.findViewById(R.id.mp_BarChart);
+        pieChart = view.findViewById(R.id.pie_chart);
+        pieText = view.findViewById(R.id.pie_text);
+        pieTextValue = view.findViewById(R.id.pie_text_value);
+        progressBar = view.findViewById(R.id.progressBar);
+        pieTextLayout = view.findViewById(R.id.pie_text_layout);
+
+        showDialog();
         fetchDataAndProcess();
+        fetchDataCountStock();
 
         // line chart
+
         LineDataSet lineDataSet1 = new LineDataSet( dataValues1() , "Stock IN" );
         LineDataSet lineDataSet2 = new LineDataSet( dataValues2() , "Stock OUT" );
         ArrayList<ILineDataSet> dataSets = new ArrayList<>();
@@ -105,11 +124,56 @@ public class HomeFragment extends Fragment {
 
         // bar chart
 
-        barChart = view.findViewById(R.id.mp_BarChart);
+        // pie chart
+
 
         return view;
     }
+    private void fetchDataCountStock() {
+        stockDao.getCountStock(new StockDao.OnCountStockFetchListener() {
+            @Override
+            public void onCountStockFetchSuccess(CountStock countStock) {
+                Log.d( TAG , "testttmbacj : "+countStock.getNbrTotal() );
+                double count = countStock.getNbrTotal();
+                String countString = String.valueOf(count);
+                pieText.setText(countString);
 
+                double value = (count/6000)*100;
+                float valueFloat = (float) value;
+
+                ArrayList<PieEntry> dataVal = new ArrayList<>();
+                dataVal.add(new PieEntry( valueFloat , ""));
+                dataVal.add(new PieEntry(100- valueFloat , ""));
+
+                PieDataSet pieDataSet = new PieDataSet(dataVal,"");
+//        colorClassArray[1] = Color.TRANSPARENT;
+                pieDataSet.setColors(colorClassArray);
+                pieDataSet.setDrawValues(false);
+
+                PieData pieData = new PieData(pieDataSet);
+
+//        pieChart.setCenterText("Boxes");
+                pieChart.setCenterTextSize(10);
+                pieChart.setCenterTextRadiusPercent(100);
+                pieChart.setHoleRadius(80);
+
+                pieChart.setDrawRoundedSlices(true);
+
+
+                Legend legPie = pieChart.getLegend();
+                legPie.setEnabled(false);
+
+                pieChart.setDescription(null);
+                pieChart.setData(pieData);
+                pieChart.invalidate();
+            }
+
+            @Override
+            public void onCountStockFetchFailure(Exception e) {
+
+            }
+        });
+    }
     private void fetchDataAndProcess() {
         stockDao.getStocks(new StockDao.OnStocksFetchListener() {
             @Override
@@ -176,6 +240,12 @@ public class HomeFragment extends Fragment {
         dataVals.add(new BarEntry(6 , 17));
 
         return dataVals;
+    }
+    private ArrayList<PieEntry> dataValuesPie(){
+        ArrayList<PieEntry> dataVal = new ArrayList<>();
+        dataVal.add(new PieEntry(75 , ""));
+        dataVal.add(new PieEntry(25 , ""));
+        return dataVal;
     }
     private void getLastStocks( LinkedList<Stock> stocks ){
 
@@ -345,6 +415,16 @@ public class HomeFragment extends Fragment {
         barChart.groupBars(0 , groupSpace , barSpace );
         barChart.invalidate();
 
+        hideDialog();
     }
-
+    private void showDialog(){
+        pieText.setVisibility(View.GONE);
+        pieTextLayout.setVisibility(View.GONE);
+        progressBar.setVisibility(View.VISIBLE);
+    }
+    private void hideDialog(){
+        pieText.setVisibility(View.VISIBLE);
+        pieTextLayout.setVisibility(View.VISIBLE);
+        progressBar.setVisibility(View.GONE);
+    }
 }
