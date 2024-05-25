@@ -53,5 +53,17 @@ public class SwitchActivity extends AppCompatActivity {
         finish();
 
     }
+    public void goToChartActivity(View view){
+
+        Intent intent = new Intent( this, MpChartActivity.class);
+        startActivity(intent);
+        finish();
+
+    }
+    public void goToNewStockActivity(View view ){
+        Intent intent = new Intent( this, NewStockActivity.class);
+        startActivity(intent);
+        finish();
+    }
 }
 
