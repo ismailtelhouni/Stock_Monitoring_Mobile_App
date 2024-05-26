@@ -29,11 +29,18 @@
     <string name="start_with">Start with</string>
     <string name="heur">Heur</string>
     <string name="save">Save</string>
-    <string name="type">type</string>
+    <string name="type">-1 / 0 / 1</string>
     <string name="go_to_newstockactivity">Go to NewStockActivity</string>
-    <string name="in_out">IN / OUT</string>
+    <string name="in_out">in / out</string>
     <string name="boxes">Boxes</string>
     <string name="_3600">3600</string>
     <string name="stock_capacity_ratio">Stock Capacity Ratio</string>
     <string name="_6000">/6000</string>
+    <string name="products_quality">Products Quality</string>
+    <string name="_50">50 %</string>
+    <string name="ripe">Ripe :</string>
+    <string name="temperature_amp_humidity"><![CDATA[Temperature &Humidity]]></string>
+    <string name="_24_c">24</string>
+    <string name="today">Today</string>
+    <string name="value_vide">" -- "</string>
 </resources>

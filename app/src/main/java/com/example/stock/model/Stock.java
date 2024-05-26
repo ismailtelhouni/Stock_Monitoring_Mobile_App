@@ -4,11 +4,11 @@ import java.util.Date;
 
 public class Stock
 {
-    String id , name , category , type ;
-    Double quantity , entryDate ;
+    String id , name  , type ;
+    Double quantity , entryDate , category ;
     Date date;
 
-    public Stock(String name, Double quantity, Double entryDate, String category, String type) {
+    public Stock(String name, Double quantity, Double entryDate, Double category, String type) {
         this.name = name;
         this.quantity = quantity;
         this.entryDate = entryDate;
@@ -60,11 +60,11 @@ public class Stock
         this.entryDate = entryDate;
     }
 
-    public String getCategory() {
+    public Double getCategory() {
         return category;
     }
 
-    public void setCategory(String category) {
+    public void setCategory(Double category) {
         this.category = category;
     }
 
