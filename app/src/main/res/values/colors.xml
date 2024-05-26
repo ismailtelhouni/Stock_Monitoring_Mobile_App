@@ -6,4 +6,6 @@
     <color name="color2">#3c8ced</color>
     <color name="color3">#33ee12</color>
     <color name="color4">#ee7c12</color>
+    <color name="btn">#ADF691</color>
+    <color name="grayLight">#E9FFE8</color>
 </resources>

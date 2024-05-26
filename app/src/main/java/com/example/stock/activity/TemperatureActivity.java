@@ -28,7 +28,7 @@ public class TemperatureActivity extends AppCompatActivity {
 
         // Initialize Realtime Database reference
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-        temperatureRef = database.getReference("Senor").child("temperarue");;
+        temperatureRef = database.getReference("sonsor").child("temperature");
 
         // Initialize views
         temperatureTextView = findViewById(R.id.temperatureTextView);
@@ -68,10 +68,10 @@ public class TemperatureActivity extends AppCompatActivity {
                     DataSnapshot lastEntry = dataSnapshot.getChildren().iterator().next();
 
                     // Get the temperature value from the last entry
-                    Double temperature = lastEntry.child("value").getValue(Double.class);
+                    Double temperature = lastEntry.child("temperature").getValue(Double.class);
 
                     // Display temperature on TextView
-                    temperatureTextView.setText("Temperature: " + temperature);
+                    temperatureTextView.setText(temperature + "°C");
                 } else {
                     // Temperature data does not exist
                     temperatureTextView.setText("No temperature data available");
