@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Example</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        h1 {
+            color: #4CAF50;
+        }
+    </style>
+</head>
+<body>
+    <h1 id="title">Hello, World!</h1>
+    <p>This is a sample HTML content with dynamic variables.</p>
+    <p id="variable"></p>
+
+    <script>
+        function setVariableContent(content) {
+            document.getElementById('variable').innerText = content;
+        }
+    </script>
+</body>
+</html>

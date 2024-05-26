@@ -110,6 +110,22 @@
             android:layout_marginEnd="15dp"
             android:visibility="gone"
             />
+        <Button
+            android:id="@+id/generatePdfButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Generate PDF"
+            android:layout_toEndOf="@+id/btn_hide_password"
+            />
+        <Button
+            android:id="@+id/generateHtmlPdfButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Generate html PDF"
+            android:layout_toEndOf="@+id/generatePdfButton"
+            />
+
     </RelativeLayout>
+
 </RelativeLayout>
 
