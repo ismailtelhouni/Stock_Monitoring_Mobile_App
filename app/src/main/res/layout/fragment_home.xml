@@ -44,8 +44,9 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 app:cardCornerRadius="8dp"
-                app:contentPaddingLeft="20dp"
-                app:contentPaddingRight="20dp"
+                app:contentPaddingLeft="4dp"
+                app:contentPaddingRight="4dp"
+                app:contentPaddingBottom="5dp"
                 android:layout_marginStart="10dp"
                 android:layout_marginEnd="4dp"
                 android:layout_marginBottom="5dp"
@@ -62,7 +63,7 @@
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
                         android:layout_centerHorizontal="true"
-                        android:layout_marginVertical="5dp"
+                        android:layout_marginTop="5dp"
                         >
                         <TextView
 
@@ -170,6 +171,7 @@
             </androidx.cardview.widget.CardView>
 
         </LinearLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -187,43 +189,215 @@
                 android:layout_marginEnd="4dp"
                 android:layout_marginTop="5dp"
                 android:layout_marginBottom="5dp"
-                app:contentPaddingLeft="20dp"
-                app:contentPaddingRight="20dp">
+                app:contentPaddingLeft="5dp"
+                app:contentPaddingRight="5dp"
+                app:contentPaddingBottom="5dp"
+                >
 
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     >
-
-                    <com.github.mikephil.charting.charts.LineChart
-                        android:id="@+id/line_chart"
+                    <TextView
+                        android:id="@+id/products_quality"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/products_quality"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="10dp"
+                        />
+                    <com.github.mikephil.charting.charts.BarChart
+                        android:id="@+id/bc_products_quality"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-
+                        android:layout_below="@id/products_quality"
+                        android:layout_above="@+id/ripe_products_quality"
                         />
+<!--                    <com.github.mikephil.charting.charts.LineChart-->
+<!--                        android:id="@+id/line_chart"-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="match_parent"-->
+<!--                        />-->
+                    <LinearLayout
+                        android:id="@+id/ripe_products_quality"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_alignParentBottom="true"
+                        android:layout_marginStart="15dp"
+                        android:layout_marginVertical="5dp"
+                        android:visibility="gone"
+                        >
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/ripe"
+                            />
+                        <TextView
+                            android:id="@+id/ripe_products_quality_value"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/_50"
+                            />
+                    </LinearLayout>
                 </RelativeLayout>
             </androidx.cardview.widget.CardView>
-
-            <androidx.cardview.widget.CardView
+            <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:layout_marginStart="4dp"
-                android:layout_marginEnd="10dp"
-                android:layout_marginTop="5dp"
-                android:layout_marginBottom="5dp"
-                app:cardCornerRadius="8dp"
-                app:contentPaddingLeft="20dp"
-                app:contentPaddingRight="20dp"
-                app:cardElevation="10dp"
+                android:orientation="vertical"
                 >
-
-                <com.github.mikephil.charting.charts.BarChart
-                    android:id="@+id/mp_BarChart2"
+                <androidx.cardview.widget.CardView
+                    android:layout_height="0dp"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
-            </androidx.cardview.widget.CardView>
+                    android:layout_weight="1"
+                    android:layout_marginStart="4dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp"
+                    app:cardCornerRadius="8dp"
+                    app:contentPaddingLeft="5dp"
+                    app:contentPaddingRight="5dp"
+                    app:cardElevation="10dp"
+                    >
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+                        <TextView
+                            android:id="@+id/temperatureTitle"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/temperature_amp_humidity"
+                            android:layout_marginTop="10dp"
+                            android:layout_centerHorizontal="true"
+                            />
+                        <LinearLayout
+                            android:id="@+id/temperature"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:layout_marginStart="30dp"
+                            android:layout_below="@+id/temperatureTitle"
+                            >
+                            <TextView
+                                android:id="@+id/temperature_value"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/value_vide"
+                                android:layout_marginTop="5dp"
+                                android:textColor="@color/green"
+                                />
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text=" °C"
+                                android:layout_marginTop="5dp"
+                                />
+                        </LinearLayout>
+                        <LinearLayout
+                            android:id="@+id/humidity"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:layout_marginStart="30dp"
+                            android:layout_below="@+id/temperature"
+                            android:layout_marginBottom="5dp"
+                            >
+                            <TextView
+                                android:id="@+id/humidity_value"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/value_vide"
+                                android:layout_marginTop="5dp"
+                                android:textColor="@color/green"
+                                />
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text=" %"
+                                android:layout_marginTop="5dp"
+                                />
+                        </LinearLayout>
+                    </RelativeLayout>
+                </androidx.cardview.widget.CardView>
+                <androidx.cardview.widget.CardView
+                    android:layout_height="0dp"
+                    android:layout_width="match_parent"
+                    android:layout_weight="1"
+                    android:layout_marginStart="4dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp"
+                    app:cardCornerRadius="8dp"
+                    app:contentPaddingLeft="20dp"
+                    app:contentPaddingRight="20dp"
+                    app:cardElevation="10dp"
+                    >
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+                        <TextView
+                            android:id="@+id/today"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/today"
+                            android:layout_marginTop="10dp"
+                            android:layout_centerHorizontal="true"
+                            />
+                        <LinearLayout
+                            android:id="@+id/temperature2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:layout_marginStart="15dp"
+                            android:layout_below="@+id/today"
+                            >
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="IN : "
+                                android:layout_marginTop="10dp"
+                                />
+                            <TextView
+                                android:id="@+id/in_value"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/value_vide"
+                                android:layout_marginTop="10dp"
+                                android:textColor="@color/green"
+                                />
+                        </LinearLayout>
+                        <LinearLayout
+                            android:id="@+id/humidity2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:layout_marginStart="15dp"
+                            android:layout_below="@+id/temperature2"
+                            android:layout_marginBottom="10dp"
+                            >
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="OUT : "
+                                android:layout_marginTop="10dp"
+                                />
+                            <TextView
+                                android:id="@+id/out_value"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/value_vide"
+                                android:layout_marginTop="10dp"
+                                android:textColor="@color/red"
+                                />
+                        </LinearLayout>
+                    </RelativeLayout>
+                </androidx.cardview.widget.CardView>
+            </LinearLayout>
         </LinearLayout>
+
+
     </RelativeLayout>
 
     <ProgressBar

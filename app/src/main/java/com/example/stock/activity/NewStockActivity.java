@@ -137,27 +137,31 @@ public class NewStockActivity extends AppCompatActivity implements View.OnClickL
             Map<String, Object> stock = new HashMap<>();
             Map<String, String> timestamp = ServerValue.TIMESTAMP;
 
+            Log.d("TAG" , "testeknkj");
+
             stock.put("name",String.valueOf(titleEditText.getText()));
             stock.put("quantity",Double.valueOf(String.valueOf(descriptionEditText.getText())));
-            stock.put("entryDate",timestamp);
+            stock.put("timestamp",timestamp);
+            stock.put("classification",Double.valueOf(Double.parseDouble(String.valueOf(typeEditText.getText()))));
 
-            DatabaseReference stockRef = db.getReference("stock").child(String.valueOf(typeEditText.getText())).child(String.valueOf(inOutEditText.getText()));
+            DatabaseReference stockRef = db.getReference("stock").child(String.valueOf(inOutEditText.getText()));
 
             // Générer une clé unique pour le nouvel élément de stock
             String stockKey = stockRef.push().getKey();
 
             // Enregistrez le stock avec la clé générée
+            assert stockKey != null;
             stockRef.child(stockKey).setValue(stock)
                     .addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
                         public void onSuccess(Void unused) {
-                            // Enregistrement réussi
+                            Toast.makeText(NewStockActivity.this , " add Success " , Toast.LENGTH_SHORT).show();
                         }
                     })
                     .addOnFailureListener(new OnFailureListener() {
                         @Override
                         public void onFailure(@NonNull Exception e) {
-                            // Échec de l'enregistrement
+                            Toast.makeText(NewStockActivity.this , " error : "+e.toString() , Toast.LENGTH_SHORT).show();
                         }
                     });
         }
