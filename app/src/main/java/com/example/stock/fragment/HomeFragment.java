@@ -486,7 +486,7 @@ public class HomeFragment extends Fragment {
         int viewWidth = viewLayout.getMeasuredWidth();
         int viewHeight = viewLayout.getMeasuredHeight();
 
-        PdfDocument.PageInfo pageInfo = new PdfDocument.PageInfo.Builder(viewWidth, viewHeight,1).create();
+        PdfDocument.PageInfo pageInfo = new PdfDocument.PageInfo.Builder(1080, 1920,1).create();
         PdfDocument.Page page = document.startPage(pageInfo);
 
 
