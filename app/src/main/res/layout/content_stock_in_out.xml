@@ -135,20 +135,30 @@
                 android:orientation="vertical"
                 android:gravity="center"
                 android:paddingTop="10dp"
+                android:id="@+id/stockTotale"
                 >
                 <TextView
                     android:id="@+id/temperatureTitleTextView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Current Temperature"
+                    android:text="Stock Totale"
                     android:textSize="16sp" />
                 <TextView
-                    android:id="@+id/temperatureTextView"
+                    android:id="@+id/stockTextView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="--"
                     android:textSize="24sp" />
             </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/stockTotale"
+                >
+
+            </LinearLayout>
+
 
         </RelativeLayout>
     </RelativeLayout>
