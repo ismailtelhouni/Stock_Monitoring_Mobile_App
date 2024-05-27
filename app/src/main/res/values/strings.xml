@@ -36,4 +36,9 @@
     <string name="_3600">3600</string>
     <string name="stock_capacity_ratio">Stock Capacity Ratio</string>
     <string name="_6000">/6000</string>
+    <string name="channel_description">Description du canal de notification</string>
+    <string name="notification_format">Title: %1$s\nMessage: %2$s\nTime: %3$s</string>
+
+    <!-- Nom du canal de notification -->
+    <string name="channel_name">Nom du canal de notification</string>
 </resources>

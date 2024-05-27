@@ -28,6 +28,9 @@
             </intent-filter>
         </activity>
         <activity
+            android:name=".activity.NotificationsActivity"
+            android:exported="false" />
+        <activity
             android:name=".activity.MainActivity"
             android:exported="false" />
         <activity
