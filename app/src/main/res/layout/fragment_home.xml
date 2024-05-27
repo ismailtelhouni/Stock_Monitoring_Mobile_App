@@ -180,7 +180,7 @@
             android:layout_below="@+id/first_chart"
             >
             <androidx.cardview.widget.CardView
-
+                android:id="@+id/card_products_quality"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"

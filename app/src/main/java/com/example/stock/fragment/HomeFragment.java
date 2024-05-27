@@ -1,12 +1,14 @@
 package com.example.stock.fragment;
 
 import android.Manifest;
+import android.content.Intent;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.pdf.PdfDocument;
 import android.os.Build;
 import android.os.Bundle;
 
+import androidx.cardview.widget.CardView;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 
@@ -18,11 +20,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.PopupMenu;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.stock.R;
+import com.example.stock.activity.ProductsQualityActivity;
+import com.example.stock.activity.StockInOutActivity;
 import com.example.stock.dao.StockDao;
 import com.example.stock.dto.CountStock;
 import com.example.stock.dto.ProductsQuality;
@@ -70,8 +75,7 @@ public class HomeFragment extends Fragment {
     private TextView pieText , ripeValue , temperatureValue , humidityValue , inValue , outValue ;
     private LinearLayout pieTextLayout , ripeProductsQuality;
     private ProgressBar progressBar;
-    private LinkedList<Stock> stocksIn , stocksOut;
-    private Button buttonCreatePDF;
+
     private View viewLayout;
     int[] colorClassArray = new int[]{Color.BLUE , Color.LTGRAY};
     public HomeFragment() {
@@ -104,22 +108,24 @@ public class HomeFragment extends Fragment {
         bcProductsQuality = view.findViewById(R.id.bc_products_quality);
         ripeValue = view.findViewById(R.id.ripe_products_quality_value);
         ripeProductsQuality = view.findViewById(R.id.ripe_products_quality);
-        buttonCreatePDF = view.findViewById(R.id.generatePdfButton);
+        Button buttonCreatePDF = view.findViewById(R.id.generatePdfButton);
+        CardView cardProductsQuality = view.findViewById(R.id.card_products_quality);
         askForPermissions();
-
-
         buttonCreatePDF.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 createPDF();
             }
         });
-
         showDialog();
         fetchDataAndProcess();
         fetchDataCountStock();
         fetchProductsQuality();
         fetchTemperature();
+        cardProductsQuality.setOnLongClickListener(view1 -> {
+            PopupMenu popupMenu = showMenu(view );
+            return false;
+        });
 
         // line chart
 
@@ -162,6 +168,36 @@ public class HomeFragment extends Fragment {
         viewLayout= view ;
         return view;
     }
+
+    private PopupMenu showMenu(View view) {
+
+        PopupMenu popupMenu = new PopupMenu(view.getContext(), view);
+        popupMenu.getMenu().add("Stock State");
+        popupMenu.getMenu().add("Products Quality");
+        popupMenu.show();
+
+        popupMenu.setOnMenuItemClickListener(menuItem -> {
+            switch (menuItem.getTitle().toString()) {
+                case "Stock State":
+                {
+                    Intent intent = new Intent(requireContext() , StockInOutActivity.class);
+                    requireActivity().startActivity(intent);
+                    return true;
+                }
+                case "Products Quality":
+                {
+                    Intent intent = new Intent(requireContext(), ProductsQualityActivity.class);
+                    requireActivity().startActivity(intent);
+                    return true;
+                }
+                default:
+                    return false;
+            }
+        });
+
+        return popupMenu;
+    }
+
     private void askForPermissions(){
         ActivityCompat.requestPermissions(requireActivity() , new String[]{ Manifest.permission.WRITE_EXTERNAL_STORAGE }, REQUEST_CODE);
     }
@@ -488,8 +524,6 @@ public class HomeFragment extends Fragment {
 
         PdfDocument.PageInfo pageInfo = new PdfDocument.PageInfo.Builder(1080, 1920,1).create();
         PdfDocument.Page page = document.startPage(pageInfo);
-
-
 
         Canvas canvas = page.getCanvas();
         viewLayout.draw(canvas);
