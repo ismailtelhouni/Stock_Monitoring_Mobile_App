@@ -31,6 +31,13 @@ public class SwitchActivity extends AppCompatActivity {
             }
         });
 
+        findViewById(R.id.stockStateActivityButton).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                goToStockStateActivity();
+            }
+        });
+
     }
 
     // Method to navigate to MainActivity
@@ -42,6 +49,11 @@ public class SwitchActivity extends AppCompatActivity {
     // Method to navigate to TemperatureActivity
     private void goToTemperatureActivity() {
         Intent intent = new Intent(this, TemperatureActivity.class);
+        startActivity(intent);
+    }
+
+    private void goToStockStateActivity() {
+        Intent intent = new Intent(this, StockInOutActivity.class);
         startActivity(intent);
     }
 
