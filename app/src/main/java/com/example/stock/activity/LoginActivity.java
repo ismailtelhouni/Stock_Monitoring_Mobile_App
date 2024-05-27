@@ -38,7 +38,7 @@ public class LoginActivity extends AppCompatActivity  implements View.OnClickLis
         FirebaseUser currentUser = mAuth.getCurrentUser();
         if(currentUser != null){
 
-            Intent intent = new Intent(getApplicationContext(),SwitchActivity.class);
+            Intent intent = new Intent(getApplicationContext(),MainActivity.class);
             startActivity(intent);
 
         }
@@ -123,7 +123,7 @@ public class LoginActivity extends AppCompatActivity  implements View.OnClickLis
 
                     Toast.makeText( this , "Login Successful" , Toast.LENGTH_SHORT ).show();
                     hideDialog();
-                    Intent intent = new Intent( this , SwitchActivity.class );
+                    Intent intent = new Intent( this , MainActivity.class );
                     startActivity(intent);
 
                 } else {

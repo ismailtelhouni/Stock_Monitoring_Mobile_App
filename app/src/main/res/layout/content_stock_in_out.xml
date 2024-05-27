@@ -189,6 +189,7 @@
                             />
 
                         <TextView
+                            android:id="@+id/under_ripe"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:text="250"
@@ -227,6 +228,7 @@
                             />
 
                         <TextView
+                            android:id="@+id/ripe_value"
                             android:layout_width="200dp"
                             android:layout_height="wrap_content"
                             android:text="1250"
@@ -265,6 +267,7 @@
                             />
 
                         <TextView
+                            android:id="@+id/overripe_value"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:text="100"
