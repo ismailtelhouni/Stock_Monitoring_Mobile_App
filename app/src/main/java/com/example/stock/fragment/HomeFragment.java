@@ -1,19 +1,33 @@
 package com.example.stock.fragment;
 
+import android.Manifest;
+import android.content.Intent;
+import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.pdf.PdfDocument;
+import android.os.Build;
 import android.os.Bundle;
 
+import androidx.cardview.widget.CardView;
+import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 
+import android.os.Environment;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.PopupMenu;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.stock.R;
+import com.example.stock.activity.ProductsQualityActivity;
+import com.example.stock.activity.StockInOutActivity;
 import com.example.stock.dao.StockDao;
 import com.example.stock.dto.CountStock;
 import com.example.stock.dto.ProductsQuality;
@@ -35,6 +49,10 @@ import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -45,7 +63,8 @@ import java.util.Objects;
 
 public class HomeFragment extends Fragment {
     private static final String TAG = "TAGHomeFragment";
-//    private LineChart mpLineChart;
+    private static final int REQUEST_CODE = 123;
+    //    private LineChart mpLineChart;
     private ArrayList<BarEntry> dataIN;
     private ArrayList<BarEntry> dataOut;
     Map<Integer, Double> entriesMap = new HashMap<>();
@@ -56,7 +75,8 @@ public class HomeFragment extends Fragment {
     private TextView pieText , ripeValue , temperatureValue , humidityValue , inValue , outValue ;
     private LinearLayout pieTextLayout , ripeProductsQuality;
     private ProgressBar progressBar;
-    private LinkedList<Stock> stocksIn , stocksOut;
+
+    private View viewLayout;
     int[] colorClassArray = new int[]{Color.BLUE , Color.LTGRAY};
     public HomeFragment() {
         // Required empty public constructor
@@ -88,12 +108,24 @@ public class HomeFragment extends Fragment {
         bcProductsQuality = view.findViewById(R.id.bc_products_quality);
         ripeValue = view.findViewById(R.id.ripe_products_quality_value);
         ripeProductsQuality = view.findViewById(R.id.ripe_products_quality);
-
+        Button buttonCreatePDF = view.findViewById(R.id.generatePdfButton);
+        CardView cardProductsQuality = view.findViewById(R.id.card_products_quality);
+        askForPermissions();
+        buttonCreatePDF.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                createPDF();
+            }
+        });
         showDialog();
         fetchDataAndProcess();
         fetchDataCountStock();
         fetchProductsQuality();
         fetchTemperature();
+        cardProductsQuality.setOnLongClickListener(view1 -> {
+            PopupMenu popupMenu = showMenu(view );
+            return false;
+        });
 
         // line chart
 
@@ -133,10 +165,42 @@ public class HomeFragment extends Fragment {
 
         // pie chart
 
-
+        viewLayout= view ;
         return view;
     }
 
+    private PopupMenu showMenu(View view) {
+
+        PopupMenu popupMenu = new PopupMenu(view.getContext(), view);
+        popupMenu.getMenu().add("Stock State");
+        popupMenu.getMenu().add("Products Quality");
+        popupMenu.show();
+
+        popupMenu.setOnMenuItemClickListener(menuItem -> {
+            switch (menuItem.getTitle().toString()) {
+                case "Stock State":
+                {
+                    Intent intent = new Intent(requireContext() , StockInOutActivity.class);
+                    requireActivity().startActivity(intent);
+                    return true;
+                }
+                case "Products Quality":
+                {
+                    Intent intent = new Intent(requireContext(), ProductsQualityActivity.class);
+                    requireActivity().startActivity(intent);
+                    return true;
+                }
+                default:
+                    return false;
+            }
+        });
+
+        return popupMenu;
+    }
+
+    private void askForPermissions(){
+        ActivityCompat.requestPermissions(requireActivity() , new String[]{ Manifest.permission.WRITE_EXTERNAL_STORAGE }, REQUEST_CODE);
+    }
     private void fetchTemperature() {
         stockDao.getTemperature(new StockDao.OnTemperatureFetchListener() {
             @Override
@@ -155,7 +219,6 @@ public class HomeFragment extends Fragment {
             }
         });
     }
-
     private void showPieChart(float valueFloat) {
         ArrayList<PieEntry> dataVal = new ArrayList<>();
         dataVal.add(new PieEntry( valueFloat , ""));
@@ -440,5 +503,47 @@ public class HomeFragment extends Fragment {
         pieTextLayout.setVisibility(View.VISIBLE);
         progressBar.setVisibility(View.GONE);
         ripeProductsQuality.setVisibility(View.VISIBLE);
+    }
+    public void createPDF(){
+        DisplayMetrics displayMetrics = new DisplayMetrics();
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R){
+            requireActivity().getDisplay().getRealMetrics(displayMetrics);
+
+        }
+        else requireActivity().getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+
+        viewLayout.measure(View.MeasureSpec.makeMeasureSpec(displayMetrics.widthPixels, View.MeasureSpec.AT_MOST ),
+                View.MeasureSpec.makeMeasureSpec(displayMetrics.widthPixels, View.MeasureSpec.AT_MOST));
+
+        viewLayout.layout(0, 0, displayMetrics.widthPixels, displayMetrics.heightPixels);
+
+        PdfDocument document = new PdfDocument();
+        int viewWidth = viewLayout.getMeasuredWidth();
+        int viewHeight = viewLayout.getMeasuredHeight();
+
+        PdfDocument.PageInfo pageInfo = new PdfDocument.PageInfo.Builder(1080, 1920,1).create();
+        PdfDocument.Page page = document.startPage(pageInfo);
+
+        Canvas canvas = page.getCanvas();
+        viewLayout.draw(canvas);
+        document.finishPage(page);
+
+        File downloadsDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS);
+        String fileName = "exempleXML.pdf";
+        File file = new File(downloadsDir, fileName);
+        try {
+            FileOutputStream fos = new FileOutputStream(file);
+            document.writeTo(fos);
+            document.close();
+            fos.close();
+            Toast.makeText(requireContext(), "Writing succefully ", Toast.LENGTH_SHORT).show();
+        } catch (FileNotFoundException e) {
+            Log.d("mylog", "Error while writing" + e.toString());
+            throw new RuntimeException(e);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
     }
 }

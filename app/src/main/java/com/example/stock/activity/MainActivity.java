@@ -72,13 +72,17 @@ public class MainActivity extends AppCompatActivity {
                 if(item.getItemId()==R.id.menu_notification){
                     Toast.makeText( getApplicationContext() , "Vous avez cliqué sur le menu notification",Toast.LENGTH_SHORT).show();
                     return true;
-                } else if (item.getItemId()==R.id.logout) {
+                } else if (item.getItemId()==R.id.menu_logout) {
                     Toast.makeText( getApplicationContext() , "Vous avez cliqué sur le menu logout",Toast.LENGTH_SHORT).show();
                     FirebaseAuth.getInstance().signOut();
                     Intent intent = new Intent( getApplicationContext(), LoginActivity.class);
                     startActivity(intent);
                     finish();
                     return true;
+                } else if (item.getItemId()==R.id.menu_new_stock){
+                    Toast.makeText( getApplicationContext() , "Vous avez cliqué sur le menu new Stock",Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent( getApplicationContext(), NewStockActivity.class);
+                    startActivity(intent);
                 }
                 return false;
             }

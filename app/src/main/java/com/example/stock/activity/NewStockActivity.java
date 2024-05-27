@@ -2,6 +2,7 @@ package com.example.stock.activity;
 
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
@@ -156,6 +157,8 @@ public class NewStockActivity extends AppCompatActivity implements View.OnClickL
                         @Override
                         public void onSuccess(Void unused) {
                             Toast.makeText(NewStockActivity.this , " add Success " , Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent( getApplicationContext(), MainActivity.class);
+                            startActivity(intent);
                         }
                     })
                     .addOnFailureListener(new OnFailureListener() {
